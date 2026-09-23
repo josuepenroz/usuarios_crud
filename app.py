@@ -3,7 +3,7 @@ from usuario import Usuario
 app =  Flask(__name__)
 
 
-@app.route("/usuarios", methods="post")
+@app.route("/usuarios")
 def Usuarios():
     usuarios = Usuario.get_all()
     nombre = request.form["nombre"].strip()

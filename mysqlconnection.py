@@ -10,8 +10,8 @@ class mysqlconnection:
             cursorclass=pymysql.cursors.DictCursor
         )
     def query_db(self,query, data=None):
-             cursor = self.connection.cursor()
-    try:
+        cursor = self.connection.cursor()
+        try:
             resultado = cursor.execute(query, data)
 
             # Si estamos consultando información
@@ -21,8 +21,15 @@ class mysqlconnection:
             # Si estamos modificando información
             else:
                 self.connection.commit()
-
-                if query.strip().lower().startswith("insert"):
-                    resultado = cursor.lastrowid
-
             return resultado
+        except Exception as error:
+            print("Error MySQL:", error)
+            return False
+
+        finally:
+            cursor.close()
+            self.connection.close()
+
+
+def connectToMySQL(db):
+    return MySQLConnection(db)
