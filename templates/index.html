@@ -7,9 +7,35 @@
   </head>
   <body>
     <header>
-        <h1>Usuarios</h1> 
-        <a href="">Nuevo Usuarios</a>
+      <h1>Usuarios</h1>
+      <a href="url{{}}">Nuevo Usuario</a>
     </header>
+    <section>
+      <table border="1">
+        <tr>
+          <th>id</th>
+          <th>Nombre completo</th>
+          <th>E-email</th>
+          <th>Fecha creacíon</th>
+          <th>Acciones</th>
+        </tr>
+        <tbody>
+          {% for usuario in usuarios %}
+          <tr>
+            <td>{{usuario.id}}</td>
+            <td>{{usuario.nombre}}</td>
+            <td>{{usuario.email}}</td>
 
+            <td>{{usuarios.created_at}}</td>
+            <td>
+              <a href="ver">ver</a>
+              <a href="Editar">editar</a>
+              <a href="borrar">borrar</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
   </body>
 </html>

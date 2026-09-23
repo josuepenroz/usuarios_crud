@@ -12,8 +12,8 @@ class Usuario:
     @classmethod
     def get_all(cls):
         query="SELECT * FROM usuarios;"
-        resultados_query=connectToMySQL('crusuario')
-        resultados_query=connectToMySQL('crusuario').query_db(query)
+        resultados_query=connectToMySQL('Usuarios_Crud')
+        resultados_query=connectToMySQL('Usuarios_Crud').query_db(query)
 
         lista_usuarios=[]
 
@@ -27,4 +27,4 @@ class Usuario:
 
         query="INSERT INTO usuarios (nombre, apellido, email, created_at, updated_at) VALUES (%(nombre)s, %(apellido)s, %(email)s, NOW(), NOW());"
 
-        return connectToMySQL('crusuario').query_db(query, datos)
+        return connectToMySQL('Usuarios_Crud').query_db(query, datos)
