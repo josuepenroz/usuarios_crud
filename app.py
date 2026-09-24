@@ -1,55 +1,38 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,redirect,url_for
 from usuario import Usuario
+from flask import request
 app =  Flask(__name__)
 
-
+@app.route("/")
+def inicio():
+    return render_template("index.html")
 @app.route("/usuarios")
 def Usuarios():
     usuarios = Usuario.get_all()
-    nombre = request.form["nombre"].strip()
-    apellido = request.form["apellido"].strip()
-    correo = request.form["correo"].strip().lower()
-    
+
     
     
     return render_template("index.html", usuarios=usuarios)
 
 
-@app.route("/usuarios/nombre/<nuevo>")
-
-@app.route(
-    "/gestion/libros/<int:libro_id>/eliminar",
-    methods=["POST"]
-)
-
-def borrar(usuario_id):
-
-    resultado = Libro.eliminar(
-        libro_id
-    )
-
-    if resultado is False:
-
-        flash(
-            "No se pudo eliminar el libro."
-        )
-
-    elif resultado == 0:
-
-        flash(
-            "El libro no existe."
-        )
-
-    else:
-
-        flash(
-            "Libro eliminado correctamente."
-        )
-
-    return redirect(
-        url_for("gestion_libros")
-    )
-
+@app.route("/usuarios/nuevo", methods=["GET","POST"])
+def nuevo_usuario():
+    
+    if request.method == "POST":
+        datos = {
+            "nombre": request.form["nombre"],
+            "apellido": request.form["apellido"],
+            "email": request.form["email"],
+        }
+        resultado = Usuario.save(datos)
+        print("Resultado gura",resultado)
+       
+        return redirect(url_for("Usuarios"))
+    return render_template("nuevo.html")
+@app.route("/usuarios/<int:usuarios_id>")
+def ver_usuario(usuarios_id):
+    usuario = Usuario.get_one(usuarios_id)
+    return render_template("ver.html", usuario=usuario)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True) 

@@ -1,12 +1,12 @@
 import pymysql
 
-class mysqlconnection:
+class MySQLconnection:
     def __init__(self,db):
         self.connection = pymysql.connect(
             host="localhost",
             user="root",
             password="root",
-            datebase="db",
+            database=db,
             cursorclass=pymysql.cursors.DictCursor
         )
     def query_db(self,query, data=None):
@@ -32,4 +32,4 @@ class mysqlconnection:
 
 
 def connectToMySQL(db):
-    return MySQLConnection(db)
+    return MySQLconnection(db)

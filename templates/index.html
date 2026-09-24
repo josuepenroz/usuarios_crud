@@ -8,7 +8,7 @@
   <body>
     <header>
       <h1>Usuarios</h1>
-      <a href="url{{}}">Nuevo Usuario</a>
+      <a href="{{url_for('nuevo_usuario')}}">Nuevo Usuario</a>
     </header>
     <section>
       <table border="1">
@@ -23,12 +23,14 @@
           {% for usuario in usuarios %}
           <tr>
             <td>{{usuario.id}}</td>
-            <td>{{usuario.nombre}}</td>
+            <td>{{usuario.nombre}} {{usuario.apellido}}</td>
+            
+
             <td>{{usuario.email}}</td>
 
-            <td>{{usuarios.created_at}}</td>
+            <td>{{usuario.created_at}}</td>
             <td>
-              <a href="ver">ver</a>
+              <a href="{{url_for('ver_usuario',usuario_id=usuario.id)}}">ver</a>
               <a href="Editar">editar</a>
               <a href="borrar">borrar</a>
             </td>
