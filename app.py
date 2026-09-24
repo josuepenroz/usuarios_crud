@@ -29,10 +29,21 @@ def nuevo_usuario():
        
         return redirect(url_for("Usuarios"))
     return render_template("nuevo.html")
-@app.route("/usuarios/<int:usuarios_id>")
-def ver_usuario(usuarios_id):
-    usuario = Usuario.get_one(usuarios_id)
+
+@app.route("/usuarios/<int:usuario_id>")
+def ver_usuario(usuario_id):
+    usuario = Usuario.get_one(usuario_id)
     return render_template("ver.html", usuario=usuario)
+@app.route("/usuarios/editar/<int:usuario_id>",methods=["GET","POST"] )
+def editar(editar_id):
+    if request.method =="GET":
+        usuario = Usuario.get_one(usuario_id)
+        
+        return render_template(
+            "editar.html",
+            usuario=usuario
+        )
+
 
 if __name__ == "__main__":
     app.run(debug=True) 
