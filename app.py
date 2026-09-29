@@ -34,16 +34,26 @@ def nuevo_usuario():
 def ver_usuario(usuario_id):
     usuario = Usuario.get_one(usuario_id)
     return render_template("ver.html", usuario=usuario)
+
+
 @app.route("/usuarios/editar/<int:usuario_id>",methods=["GET","POST"] )
-def editar(editar_id):
+def editar(usuario_id):
     if request.method =="GET":
         usuario = Usuario.get_one(usuario_id)
-        
-        return render_template(
-            "editar.html",
-            usuario=usuario
-        )
-
+        return render_template("editar.html",usuario=usuario)
+    if request.method =="POST":
+        datos = {
+            "id": usuario_id,
+            "nombre": request.form["nombre"],
+            "apellido": request.form["apellido"],
+            "email": request.form["email"]
+        }
+        Usuario.updated(datos)
+        return redirect(url_for("Usuarios"))
+@app.route("/usuarios/borrar/<int:usuario_id>")
+def borrar(usuario_id):
+    Usuario.delete(usuario_id)
+    return redirect(url_for("Usuarios"))
 
 if __name__ == "__main__":
     app.run(debug=True) 

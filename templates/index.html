@@ -31,8 +31,8 @@
             <td>{{usuario.created_at}}</td>
             <td>
               <a href="{{url_for('ver_usuario',usuario_id=usuario.id)}}">ver</a>
-              <a href="Editar">editar</a>
-              <a href="borrar">borrar</a>
+              <a href="{{url_for('editar', usuario_id=usuario.id)}}">editar</a>
+              <a href="{{url_for('borrar',usuario_id=usuario.id)}}">borrar</a>
             </td>
           </tr>
           {% endfor %}

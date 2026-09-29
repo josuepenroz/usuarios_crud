@@ -40,3 +40,21 @@ class Usuario:
         if len(resultado) == 0:
             return None
         return cls(resultado[0])
+    @classmethod
+    def updated(cls,datos):
+        query=""" 
+        UPDATE usuarios
+        set nombre = %(nombre)s,
+            apellido = %(apellido)s,
+            email = %(email)s,
+            updated_at = NOW()
+            WHERE id = %(id)s;    
+        """
+        return connectToMySQL("usuarios_crud").query_db(query, datos)
+    @classmethod
+    def delete(cls,id):
+        query = "DELETE FROM usuarios WHERE id = %(id)s;"
+        datos = {
+            "id": id
+        }
+        return connectToMySQL("usuarios_crud").query_db(query,datos)
